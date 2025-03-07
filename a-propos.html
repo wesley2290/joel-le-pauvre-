@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Lemarchand | À Propos</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff9800;
+            --primary-dark: #e68900;
+            --light-bg: #f0f4f8;
+            --light-surface: #ffffff;
+            --light-text: #333333;
+            --light-text-secondary: #666666;
+            --light-shadow-1: rgba(0, 0, 0, 0.05);
+            --light-shadow-2: rgba(255, 255, 255, 0.8);
+            --dark-bg: #121212;
+            --dark-surface: #1e1e1e;
+            --dark-text: #f0f0f0;
+            --dark-text-secondary: #b0b0b0;
+            --dark-shadow-1: rgba(0, 0, 0, 0.3);
+            --dark-shadow-2: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --bg: var(--dark-bg);
+            --surface: var(--dark-surface);
+            --text: var(--dark-text);
+            --text-secondary: var(--dark-text-secondary);
+            --shadow-1: var(--dark-shadow-1);
+            --shadow-2: var(--dark-shadow-2);
+        }
+
+        .light-mode {
+            --bg: var(--light-bg);
+            --surface: var(--light-surface);
+            --text: var(--light-text);
+            --text-secondary: var(--light-text-secondary);
+            --shadow-1: var(--light-shadow-1);
+            --shadow-2: var(--light-shadow-2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animation de particules */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Header et navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--surface);
+            box-shadow: 0 4px 20px var(--shadow-1);
+            border-radius: 0 0 20px 20px;
+            margin: 0 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-left: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+        }
+
+        .logo-circle span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 0.8rem;
+        }
+
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary);
+        }
+
+        nav ul li a:hover:after, nav ul li a.active:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        /* Menu mobile */
+        .menu-toggle {
+            display: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--surface);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .menu-toggle i {
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+            border-radius: 20px;
+            background: var(--surface);
+            box-shadow: 12px 12px 24px var(--shadow-1), -12px -12px 24px var(--shadow-2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 4rem 1rem;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 12px 12px 24px var(--shadow-1), -12px -12px 24px var(--shadow-2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-content {
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.8s forwards 0.3s;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .about-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 6rem 1rem;
+            background-color: var(--bg);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 8px 8px 16px var(--shadow-1), -8px -8px 16px var(--shadow-2);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+        }
+
+        .skill-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .skill-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-item i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 6rem 1rem;
+            text-align: center;
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 4rem auto 0;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin-bottom: 4rem;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 30px;
+            margin-left: 50%;
+        }
+
+        .timeline-content {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 8px 8px 16px var(--shadow-1), -8px -8px 16px var(--shadow-2);
+            max-width: 80%;
+            text-align: left;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: 0;
+            right: -20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            box-shadow: 4px 4px 8px var(--shadow-1);
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            right: auto;
+            left: -20px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+        }
+
+        .timeline-subtitle {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 6rem 1rem;
+            text-align: center;
+            background-color: var(--bg);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 8px 8px 16px var(--shadow-1), -8px -8px 16px var(--shadow-2);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--surface);
+            border-radius: 20px;
+            box-shadow: 12px 12px 24px var(--shadow-1), -12px -12px 24px var(--shadow-2);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 4px 4px 8px var(--shadow-1);
+            transition: var(--transition);
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 12px var(--shadow-1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-left: 0.5rem;
+        }
+
+        .footer-logo p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+
+        .social-icon i {
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover i {
+            color: white;
+        }
+
+        .copyright {
+            width: 100%;
+            padding-top: 2rem;
+            border-top: 1px solid var(--shadow-1);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                margin-bottom: 2rem;
+            }
+            .timeline-line {
+                left: 20px;
+            }
+            .timeline-item, .timeline-item:nth-child(even) {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 0;
+                margin-left: 0;
+                justify-content: flex-start;
+            }
+            .timeline-date, .timeline-item:nth-child(even) .timeline-date {
+                left: 0;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+            }
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100vh;
+                background: var(--surface);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 5rem;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px var(--shadow-1);
+                z-index: 999;
+            }
+            nav ul.active {
+                right: 0;
+            }
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+            .menu-toggle {
+                display: flex;
+                z-index: 1000;
+            }
+            .hero-content {
+                padding: 1.5rem;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .about-title {
+                font-size: 2rem;
+            }
+            .about-text {
+                font-size: 1rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-logo, .footer-links, .footer-social {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .cta-container {
+                padding: 2rem 1rem;
+            }
+            .cta-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Particles Background -->
+    <canvas class="particles"></canvas>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-circle">
+                    <span>T</span>
+                </div>
+                <h1>Thomas Lemarchand</h1>
+            </a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Vidéo</a></li>
+                    <li><a href="ai-content.html">A.I Content</a></li>
+                    <li><a href="photographie.html">Photographie</a></li>
+                    <li><a href="a-propos.html" class="active">À Propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">À Propos</h1>
+            <h2 class="hero-subtitle">Je suis Thomas Lemarchand, un réalisateur freelance passionné par la création de contenus digitaux innovants.</h2>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://picsum.photos/600/800?random=30" alt="Thomas Lemarchand">
+            </div>
+            <div class="about-content">
+                <h2 class="about-title">Mon Parcours</h2>
+                <p class="about-text">
+                    Je suis Thomas Lemarchand, un réalisateur freelance passionné par la création de contenus digitaux innovants. Fort de mes expériences en vidéo, photographie et contenu digital, je mets ma créativité au service de projets ambitieux et sur mesure.
+                </p>
+                <p class="about-text">
+                    Mon approche créative combine une solide expertise technique avec une vision artistique unique. Je m'adapte aux besoins spécifiques de chaque client pour créer des contenus qui racontent des histoires impactantes et mémorables.
+                </p>
+                <p class="about-text">
+                    Qu'il s'agisse de réalisation vidéo, de photographie ou d'expérimentations avec l'intelligence artificielle, je m'efforce toujours de repousser les limites de la créativité et de l'innovation.
+                </p>
+                <div class="about-signature">Thomas Lemarchand</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <h2 class="section-title">Mes Compétences</h2>
+        <div class="skills-container">
+            <!-- Skill Category 1 -->
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="skill-title">Réalisation Vidéo</h3>
+                <ul class="skill-list">
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Direction artistique</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Cadrage et composition</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Éclairage professionnel</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Montage et post-production</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Color grading</li>
+                </ul>
+            </div>
+
+            <!-- Skill Category 2 -->
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3 class="skill-title">Photographie</h3>
+                <ul class="skill-list">
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Portraits artistiques</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Photographie d'événements</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Photographie de mode</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Retouche photo avancée</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Direction de shooting</li>
+                </ul>
+            </div>
+
+            <!-- Skill Category 3 -->
+            <div class="skill-category">
+                <div class="skill-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="skill-title">Intelligence Artificielle</h3>
+                <ul class="skill-list">
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Génération d'images IA</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Vidéo générative</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Text-to-Image</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Style transfer</li>
+                    <li class="skill-item"><i class="fas fa-check-circle"></i> Modélisation 3D par IA</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <h2 class="section-title">Mon Parcours</h2>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Formation en Arts Visuels</h3>
+                    <h4 class="timeline-subtitle">École des Arts Visuels de Paris</h4>
+                    <p class="timeline-desc">Diplômé avec mention en réalisation audiovisuelle et techniques de l'image. Spécialisation en narration visuelle et direction artistique.</p>
+                </div>
+                <div class="timeline-date">1</div>
+            </div>
+            
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Assistant Réalisateur</h3>
+                    <h4 class="timeline-subtitle">Studio Créatif Lumière</h4>
+                    <p class="timeline-desc">Collaboration sur des projets publicitaires et documentaires. Développement de compétences en gestion d'équipe et en direction technique.</p>
+                </div>
+                <div class="timeline-date">2</div>
+            </div>
+            
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Directeur de la Photographie</h3>
+                    <h4 class="timeline-subtitle">Agence Visuelle Prisme</h4>
+                    <p class="timeline-desc">Responsable de l'esthétique visuelle pour des campagnes publicitaires nationales. Perfectionnement des techniques d'éclairage et de cadrage.</p>
+                </div>
+                <div class="timeline-date">3</div>
+            </div>
+            
+            <!-- Timeline Item 4 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Réalisateur Freelance</h3>
+                    <h4 class="timeline-subtitle">Création de mon studio indépendant</h4>
+                    <p class="timeline-desc">Lancement de mon activité freelance avec une spécialisation en contenus digitaux innovants, combinant vidéo, photographie et nouvelles technologies.</p>
+                </div>
+                <div class="timeline-date">4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <h2 class="section-title">Ce Qu'ils Disent</h2>
+        <div class="testimonials-container">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Thomas a su capturer l'essence de notre marque à travers une série de vidéos qui ont considérablement augmenté notre engagement sur les réseaux sociaux. Son approche créative et sa maîtrise technique sont impressionnantes."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://picsum.photos/100/100?random=31" alt="Sophie Martin">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Sophie Martin</h4>
+                        <p>Directrice Marketing, Maison Élégance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Collaborer avec Thomas a été une expérience exceptionnelle. Sa vision artistique et sa capacité à transformer des concepts abstraits en visuels puissants ont fait de notre campagne un véritable succès."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://picsum.photos/100/100?random=32" alt="Marc Dubois">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Marc Dubois</h4>
+                        <p>Fondateur, Studio Nova</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Les photographies réalisées par Thomas pour notre lookbook ont dépassé toutes nos attentes. Son attention aux détails et sa capacité à capturer l'émotion sont remarquables. Un vrai professionnel."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="https://picsum.photos/100/100?random=33" alt="Julie Leroy">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Julie Leroy</h4>
+                        <p>Directrice Artistique, Éclat Fashion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Travaillons Ensemble</h2>
+            <p class="cta-text">Vous avez un projet qui nécessite une vision créative et une expertise technique ? Je serais ravi de mettre mes compétences au service de votre projet pour créer un contenu visuel impactant et mémorable.</p>
+            <a href="contact.html" class="cta-btn">Me contacter</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-content">
+                    <div class="logo-circle">
+                        <span>T</span>
+                    </div>
+                    <h3>Thomas Lemarchand</h3>
+                </div>
+                <p>Réalisateur freelance passionné par la création de contenus digitaux innovants et sur mesure.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Liens Rapides</h4>
+                <ul>
+                    <li><a href="index.html">Vidéo</a></li>
+                    <li><a href="ai-content.html">A.I Content</a></li>
+                    <li><a href="photographie.html">Photographie</a></li>
+                    <li><a href="a-propos.html">À Propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Suivez-moi</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-vimeo-v"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 Thomas Lemarchand. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Particules d'arrière-plan
+        const canvas = document.querySelector('.particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        function createParticles() {
+            particles = [];
+            const particleCount = Math.floor(window.innerWidth / 20);
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    color: document.body.classList.contains('dark-mode') ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.2)',
+                    velocity: {
+                        x: (Math.random() - 0.5) * 0.5,
+                        y: (Math.random() - 0.5) * 0.5
+                    }
+                });
+            }
+        }
+        
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+                
+                // Mise à jour de la position
+                particle.x += particle.velocity.x;
+                particle.y += particle.velocity.y;
+                
+                // Rebond sur les bords
+                if (particle.x < 0 || particle.x > canvas.width) {
+                    particle.velocity.x *= -1;
+                }
+                
+                if (particle.y < 0 || particle.y > canvas.height) {
+                    particle.velocity.y *= -1;
+                }
+            });
+            
+            requestAnimationFrame(drawParticles);
+        }
+        
+        // Initialisation des particules
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            createParticles();
+            drawParticles();
+        });
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            createParticles();
+        });
+        
+        // Toggle du thème
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('light-mode')) {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            createParticles(); // Recréer les particules avec la nouvelle couleur
+        });
+        
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Animation au défilement
+        const fadeElements = document.querySelectorAll('.about-image, .about-content, .skill-category, .timeline-content, .testimonial-card, .cta-container');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                    element.classList.add('fade-in');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+        
+        // Ajouter une animation fade-in à toutes les sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            section.classList.add('fade-in');
+        });
+    </script>
+</body>
+</html>

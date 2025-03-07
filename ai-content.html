@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Lemarchand | A.I Content</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff9800;
+            --primary-dark: #e68900;
+            --light-bg: #f0f4f8;
+            --light-surface: #ffffff;
+            --light-text: #333333;
+            --light-text-secondary: #666666;
+            --light-shadow-1: rgba(0, 0, 0, 0.05);
+            --light-shadow-2: rgba(255, 255, 255, 0.8);
+            --dark-bg: #121212;
+            --dark-surface: #1e1e1e;
+            --dark-text: #f0f0f0;
+            --dark-text-secondary: #b0b0b0;
+            --dark-shadow-1: rgba(0, 0, 0, 0.3);
+            --dark-shadow-2: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --bg: var(--dark-bg);
+            --surface: var(--dark-surface);
+            --text: var(--dark-text);
+            --text-secondary: var(--dark-text-secondary);
+            --shadow-1: var(--dark-shadow-1);
+            --shadow-2: var(--dark-shadow-2);
+        }
+
+        .light-mode {
+            --bg: var(--light-bg);
+            --surface: var(--light-surface);
+            --text: var(--light-text);
+            --text-secondary: var(--light-text-secondary);
+            --shadow-1: var(--light-shadow-1);
+            --shadow-2: var(--light-shadow-2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animation de particules */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Header et navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--surface);
+            box-shadow: 0 4px 20px var(--shadow-1);
+            border-radius: 0 0 20px 20px;
+            margin: 0 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-left: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+        }
+
+        .logo-circle span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 0.8rem;
+        }
+
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary);
+        }
+
+        nav ul li a:hover:after, nav ul li a.active:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        /* Menu mobile */
+        .menu-toggle {
+            display: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--surface);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .menu-toggle i {
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+            border-radius: 20px;
+            background: var(--surface);
+            box-shadow: 12px 12px 24px var(--shadow-1), -12px -12px 24px var(--shadow-2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* AI Categories Section */
+        .categories-section {
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--surface);
+            color: var(--text);
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* AI Projects Gallery */
+        .ai-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .ai-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 8px 8px 16px var(--shadow-1), -8px -8px 16px var(--shadow-2);
+            cursor: pointer;
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+            background: var(--surface);
+            padding-bottom: 1rem;
+        }
+
+        .ai-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 10px 10px 20px var(--shadow-1), -10px -10px 20px var(--shadow-2);
+        }
+
+        .ai-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .ai-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .ai-content {
+            padding: 1.5rem;
+        }
+
+        .ai-category {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+        }
+
+        .ai-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+        }
+
+        .ai-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .ai-link {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .ai-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .ai-link:hover:after {
+            width: 100%;
+        }
+
+        /* AI Technology Section */
+        .tech-section {
+            padding: 6rem 1rem;
+            text-align: center;
+        }
+
+        .tech-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-card {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 8px 8px 16px var(--shadow-1), -8px -8px 16px var(--shadow-2);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tech-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+        }
+
+        .tech-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .tech-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* AI Process Section */
+        .process-section {
+            padding: 6rem 1rem;
+            text-align: center;
+            background-color: var(--bg);
+        }
+
+        .process-container {
+            max-width: 1000px;
+            margin: 4rem auto 0;
+            position: relative;
+        }
+
+        .process-line {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            width: 4px;
+            height: calc(100% - 80px);
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+
+        .process-item {
+            display: flex;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .process-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .process-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .process-content {
+            flex: 1;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 15px;
+            box-shadow: 8px 8px 16px var(--shadow-1), -8px -8px 16px var(--shadow-2);
+            text-align: left;
+            max-width: 45%;
+        }
+
+        .process-item:nth-child(odd) .process-content {
+            text-align: right;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 4px 4px 8px var(--shadow-1);
+            z-index: 1;
+        }
+
+        .process-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .process-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--surface);
+            border-radius: 20px;
+            box-shadow: 12px 12px 24px var(--shadow-1), -12px -12px 24px var(--shadow-2);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 4px 4px 8px var(--shadow-1);
+            transition: var(--transition);
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 12px var(--shadow-1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-left: 0.5rem;
+        }
+
+        .footer-logo p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 8px var(--shadow-1), -4px -4px 8px var(--shadow-2);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+
+        .social-icon i {
+            font-size: 1.2rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover i {
+            color: white;
+        }
+
+        .copyright {
+            width: 100%;
+            padding-top: 2rem;
+            border-top: 1px solid var(--shadow-1);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .process-content {
+                max-width: 100%;
+            }
+            .process-line {
+                display: none;
+            }
+            .process-item, .process-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: center;
+            }
+            .process-content, .process-item:nth-child(odd) .process-content {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+            }
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100vh;
+                background: var(--surface);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 5rem;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px var(--shadow-1);
+                z-index: 999;
+            }
+            nav ul.active {
+                right: 0;
+            }
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+            .menu-toggle {
+                display: flex;
+                z-index: 1000;
+            }
+            .hero-content {
+                padding: 1.5rem;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .ai-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            .tech-container {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-logo, .footer-links, .footer-social {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .ai-gallery {
+                grid-template-columns: 1fr;
+            }
+            .cta-container {
+                padding: 2rem 1rem;
+            }
+            .cta-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Particles Background -->
+    <canvas class="particles"></canvas>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-circle">
+                    <span>T</span>
+                </div>
+                <h1>Thomas Lemarchand</h1>
+            </a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Vidéo</a></li>
+                    <li><a href="ai-content.html" class="active">A.I Content</a></li>
+                    <li><a href="photographie.html">Photographie</a></li>
+                    <li><a href="a-propos.html">À Propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">A.I Content</h1>
+            <h2 class="hero-subtitle">Ici, je présente mes projets et expérimentations liés à l'intelligence artificielle dans le domaine digital.</h2>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="categories">
+            <button class="category-btn active" data-category="all">Tous</button>
+            <button class="category-btn" data-category="generation">Génération d'images</button>
+            <button class="category-btn" data-category="video">Vidéo IA</button>
+            <button class="category-btn" data-category="text">Text-to-Image</button>
+            <button class="category-btn" data-category="editing">Editing IA</button>
+            <button class="category-btn" data-category="3d">3D Génératif</button>
+        </div>
+
+        <div class="ai-gallery" id="ai-gallery">
+            <!-- AI Item 1 -->
+            <div class="ai-item" data-category="generation">
+                <img src="https://picsum.photos/600/400?random=20" alt="Génération d'images IA">
+                <div class="ai-content">
+                    <span class="ai-category">GÉNÉRATION D'IMAGES</span>
+                    <h3 class="ai-title">Portraits Stylisés</h3>
+                    <p class="ai-desc">Série de portraits générés par IA avec différents styles artistiques et époques.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 2 -->
+            <div class="ai-item" data-category="video">
+                <img src="https://picsum.photos/600/400?random=21" alt="Vidéo IA">
+                <div class="ai-content">
+                    <span class="ai-category">VIDÉO IA</span>
+                    <h3 class="ai-title">Animation Fluide</h3>
+                    <p class="ai-desc">Transformation d'images statiques en animations fluides grâce à l'IA.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 3 -->
+            <div class="ai-item" data-category="text">
+                <img src="https://picsum.photos/600/400?random=22" alt="Text-to-Image">
+                <div class="ai-content">
+                    <span class="ai-category">TEXT-TO-IMAGE</span>
+                    <h3 class="ai-title">Poésie Visuelle</h3>
+                    <p class="ai-desc">Transformation de poèmes en visuels artistiques générés par IA.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 4 -->
+            <div class="ai-item" data-category="editing">
+                <img src="https://picsum.photos/600/400?random=23" alt="Editing IA">
+                <div class="ai-content">
+                    <span class="ai-category">EDITING IA</span>
+                    <h3 class="ai-title">Restauration Photo</h3>
+                    <p class="ai-desc">Restauration et colorisation de photographies anciennes avec l'IA.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 5 -->
+            <div class="ai-item" data-category="3d">
+                <img src="https://picsum.photos/600/400?random=24" alt="3D Génératif">
+                <div class="ai-content">
+                    <span class="ai-category">3D GÉNÉRATIF</span>
+                    <h3 class="ai-title">Espaces Imaginaires</h3>
+                    <p class="ai-desc">Création d'environnements 3D surréalistes générés par intelligence artificielle.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 6 -->
+            <div class="ai-item" data-category="generation">
+                <img src="https://picsum.photos/600/400?random=25" alt="Génération d'images IA">
+                <div class="ai-content">
+                    <span class="ai-category">GÉNÉRATION D'IMAGES</span>
+                    <h3 class="ai-title">Paysages Oniriques</h3>
+                    <p class="ai-desc">Paysages fantastiques générés par IA, inspirés de rêves et d'émotions.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 7 -->
+            <div class="ai-item" data-category="video">
+                <img src="https://picsum.photos/600/400?random=26" alt="Vidéo IA">
+                <div class="ai-content">
+                    <span class="ai-category">VIDÉO IA</span>
+                    <h3 class="ai-title">Style Transfer</h3>
+                    <p class="ai-desc">Application de styles artistiques sur des vidéos en temps réel avec l'IA.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 8 -->
+            <div class="ai-item" data-category="text">
+                <img src="https://picsum.photos/600/400?random=27" alt="Text-to-Image">
+                <div class="ai-content">
+                    <span class="ai-category">TEXT-TO-IMAGE</span>
+                    <h3 class="ai-title">Concepts Visuels</h3>
+                    <p class="ai-desc">Création de concepts visuels pour des projets créatifs à partir de descriptions textuelles.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+
+            <!-- AI Item 9 -->
+            <div class="ai-item" data-category="3d">
+                <img src="https://picsum.photos/600/400?random=28" alt="3D Génératif">
+                <div class="ai-content">
+                    <span class="ai-category">3D GÉNÉRATIF</span>
+                    <h3 class="ai-title">Sculptures Digitales</h3>
+                    <p class="ai-desc">Création de sculptures numériques générées par algorithmes d'IA.</p>
+                    <a href="#" class="ai-link">Voir le projet</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="tech-section">
+        <h2 class="section-title">Technologies IA</h2>
+        <div class="tech-container">
+            <!-- Tech 1 -->
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+                <h3 class="tech-title">Génération d'Images</h3>
+                <p class="tech-desc">Utilisation des dernières technologies de génération d'images par IA comme Stable Diffusion, Midjourney et DALL-E pour créer des visuels uniques et personnalisés.</p>
+            </div>
+
+            <!-- Tech 2 -->
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="tech-title">Vidéo Générative</h3>
+                <p class="tech-desc">Création de contenu vidéo avec des outils d'IA avancés permettant l'animation, la stylisation et la transformation de visuels statiques en séquences dynamiques.</p>
+            </div>
+
+            <!-- Tech 3 -->
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="tech-title">Style Transfer</h3>
+                <p class="tech-desc">Application de styles artistiques sur des images et vidéos grâce à des réseaux de neurones spécialisés dans la reconnaissance et la reproduction de styles visuels.</p>
+            </div>
+
+            <!-- Tech 4 -->
+            <div class="tech-card">
+                <div class="tech-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h3 class="tech-title">3D Génératif</h3>
+                <p class="tech-desc">Création de modèles et environnements 3D à partir de prompts textuels ou d'images de référence, ouvrant de nouvelles possibilités pour la conception digitale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <h2 class="section-title">Mon Processus Créatif IA</h2>
+        <div class="process-container">
+            <div class="process-line"></div>
+            
+            <!-- Process Item 1 -->
+            <div class="process-item">
+                <div class="process-number">1</div>
+                <div class="process-content">
+                    <h3 class="process-title">Conceptualisation</h3>
+                    <p class="process-desc">Définition du concept et des objectifs créatifs du projet. Recherche et exploration des possibilités offertes par les différentes technologies d'IA.</p>
+                </div>
+            </div>
+            
+            <!-- Process Item 2 -->
+            <div class="process-item">
+                <div class="process-number">2</div>
+                <div class="process-content">
+                    <h3 class="process-title">Expérimentation</h3>
+                    <p class="process-desc">Phase d'expérimentation avec différents prompts, paramètres et techniques pour explorer les possibilités créatives et affiner la direction artistique.</p>
+                </div>
+            </div>
+            
+            <!-- Process Item 3 -->
+            <div class="process-item">
+                <div class="process-number">3</div>
+                <div class="process-content">
+                    <h3 class="process-title">Génération & Sélection</h3>
+                    <p class="process-desc">Génération de multiples variations et sélection des résultats les plus pertinents et créativement intéressants pour le projet.</p>
+                </div>
+            </div>
+            
+            <!-- Process Item 4 -->
+            <div class="process-item">
+                <div class="process-number">4</div>
+                <div class="process-content">
+                    <h3 class="process-title">Post-production</h3>
+                    <p class="process-desc">Affinage et retouche des résultats générés par l'IA pour atteindre la qualité finale désirée et s'assurer de la cohérence du projet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Un projet créatif avec l'IA ?</h2>
+            <p class="cta-text">Vous souhaitez explorer les possibilités créatives de l'intelligence artificielle pour votre marque ou votre projet ? Discutons de la manière dont je peux vous aider à concrétiser votre vision.</p>
+            <a href="contact.html" class="cta-btn">Me contacter</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-content">
+                    <div class="logo-circle">
+                        <span>T</span>
+                    </div>
+                    <h3>Thomas Lemarchand</h3>
+                </div>
+                <p>Réalisateur freelance passionné par la création de contenus digitaux innovants et sur mesure.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Liens Rapides</h4>
+                <ul>
+                    <li><a href="index.html">Vidéo</a></li>
+                    <li><a href="ai-content.html">A.I Content</a></li>
+                    <li><a href="photographie.html">Photographie</a></li>
+                    <li><a href="a-propos.html">À Propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Suivez-moi</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-vimeo-v"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 Thomas Lemarchand. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Particules d'arrière-plan
+        const canvas = document.querySelector('.particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        function createParticles() {
+            particles = [];
+            const particleCount = Math.floor(window.innerWidth / 20);
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    color: document.body.classList.contains('dark-mode') ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.2)',
+                    velocity: {
+                        x: (Math.random() - 0.5) * 0.5,
+                        y: (Math.random() - 0.5) * 0.5
+                    }
+                });
+            }
+        }
+        
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+                
+                // Mise à jour de la position
+                particle.x += particle.velocity.x;
+                particle.y += particle.velocity.y;
+                
+                // Rebond sur les bords
+                if (particle.x < 0 || particle.x > canvas.width) {
+                    particle.velocity.x *= -1;
+                }
+                
+                if (particle.y < 0 || particle.y > canvas.height) {
+                    particle.velocity.y *= -1;
+                }
+            });
+            
+            requestAnimationFrame(drawParticles);
+        }
+        
+        // Initialisation des particules
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            createParticles();
+            drawParticles();
+        });
+        
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            createParticles();
+        });
+        
+        // Toggle du thème
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('light-mode')) {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            createParticles(); // Recréer les particules avec la nouvelle couleur
+        });
+        
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Filtrage des projets IA
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const aiItems = document.querySelectorAll('.ai-item');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                aiItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        
+                        // Animation de réapparition
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Animation au défilement
+        const fadeElements = document.querySelectorAll('.ai-item, .tech-card, .process-item, .cta-container');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                    element.classList.add('fade-in');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+        
+        // Ajouter une animation fade-in à toutes les sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            section.classList.add('fade-in');
+        });
+    </script>
+</body>
+</html>
